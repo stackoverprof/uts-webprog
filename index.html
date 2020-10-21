@@ -112,8 +112,9 @@
             //menggunakan perulangan bersarang, berjenis For Of
             for (const eachWord of arrayComments){
                 for (const eachKataNegatif of kataNegatif){
-                    if (eachWord == eachKataNegatif) isKotor = true;
+                    if (eachWord.toLowerCase() == eachKataNegatif) isKotor = true;
                     //bila ditemukan kecocokan kata kotor maka isKotor jadi true
+                    //dirubah ke lowercase untuk menghindari perbedaan kapitalisasi pada kata kotor,jadi misal Bebek bebek beBek BeBeK akan tetap terdeteksi kotor
                 }
             }
             
