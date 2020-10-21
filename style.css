@@ -1,0 +1,407 @@
+body{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+    display: flex;
+    justify-content: flex-between;
+    align-items: center;
+    overflow-y: hidden;
+}
+h1{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 37.6933px;
+    line-height: 46px;
+
+    color: #1C083D;
+    margin: 0;
+    margin-bottom: 40px;
+}
+h2{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 58.6933px;
+    line-height: 72px;
+    /* identical to box height */
+
+    color: white;
+    margin: 0;
+}
+h2 span{
+    color: #FF9E0D;
+}
+h3{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 36.6933px;
+    line-height: 43px;
+    /* identical to box height */
+    margin: 0;
+    
+    color: rgba(255, 255, 255, 0.25);
+}
+h4{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16.6933px;
+    line-height: 20px;
+    /* identical to box height */
+    margin: 0;
+    margin-top: 50px;
+    margin-left: 22px;
+    
+    
+    color: #FFFFFF;
+}
+h5{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20.6933px;
+    line-height: 25px;
+    margin: 0;
+    margin-top: 10px;
+    margin-left: 22px;
+
+    color: #FFFFFF;
+}
+.inputside{
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 104px 0 0 104px;
+}
+.colorfulside{
+    position: fixed;
+    width: 50%;
+    height: 100%;
+    right: 0;
+    background-image: url('img/background.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+label{
+
+    width: 140px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.6933px;
+    line-height: 19px;
+
+    color: #FF9E0D;
+}
+.eachinput{
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+select{
+    width: 280px;
+    height: 42px;
+    background: white;
+    background-image: url('img/selectarrow.svg');
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    border: 1px solid #939393;
+    border-bottom: 3px solid #323232;
+    box-sizing: border-box;
+    padding-left: 8px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13.6933px;
+    line-height: 17px;
+    /* identical to box height */
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+
+    color: #575757;
+}
+.opt{
+    background-color: white;
+}
+input{
+    background: none;
+    width: 276px;
+    height: 42px;
+    border: 0;
+    border-bottom: 1px solid #323232;   
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #171717;
+}
+input:focus{
+    outline: none;
+}
+input::placeholder{
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 13.6933px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #B7B7B7;
+}
+.comments{
+    margin-top: 48px;
+    position: relative;
+    width: 100%;
+
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 12px;
+
+    
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-direction: column;
+    overflow: hidden;
+}
+.comments label{
+    position: relative;
+    width: 100%;
+    height: 32px;
+    background-image: url('img/threedot.svg');
+    background-position: top left;
+    background-repeat: no-repeat;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: black;
+    font-weight: 600;
+}
+textarea{
+    width: 85%;
+    padding: 5px 24px 10px 6px;
+    border: none;
+    margin-top: 8px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 17px;
+    /* identical to box height */
+    resize: none;
+
+    color: #171717;
+}
+textarea:focus{
+    outline: none;
+}
+textarea::placeholder{
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 13.6933px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #B7B7B7;
+}
+.buttons{
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+button#submit{
+    width: 132px;
+    height: 46px;
+
+    margin-left: 8px;
+
+    background-image: url('img/btnsubmit.svg');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 3px solid #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding-left: 32px;
+    
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.69px;
+    line-height: 19px;
+
+    color: #FFFFFF;
+}
+#reset{
+    width: 108px;
+    height: 46px;
+
+    margin: 4px;
+
+    background-image: url('img/btnreset.svg');
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 3px solid #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding-left: 32px;
+    
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.69px;
+    line-height: 19px;
+
+    color: #FFFFFF;
+}
+button:focus{
+    filter: brightness(0.8);
+    box-shadow: none;
+    outline: none;
+}
+.default-content{
+    margin: 48px 0 0 68px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.namebox{
+    width: 331px;
+    height: 137px;
+    margin-top: 80px;
+
+    background-image: url('img/namebox.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.floater{
+    position: absolute;
+    left: -26px;
+    bottom: 26px;
+}
+
+.result-modal{
+    position: absolute;
+    width: 536px;
+    height: 558px;
+    margin: 0;
+    left: 72px;
+    background-color: #1C083D;
+    border-radius: 16px;
+    
+    transition: 1s;
+    transform: translateX(-608px) scale(0.7);
+}
+.background-modal{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('img/threedotwarna.svg');
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+.container-hasil{
+    margin: 0 58px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.h-result{
+    color: white;
+    margin: 0;
+    margin-bottom: 24px;
+    margin-top: 68px;
+}
+.container-hasil p{
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    margin: 0;
+
+    color: #FFFFFF;
+}
+.warning{
+    width: 423px;
+    height: 64px;
+    margin-bottom: 42px;
+
+    box-sizing: border-box;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+}
+.warning-ada{
+    background: rgba(252, 73, 73, 0.12);
+    border: 3px solid #FC4949;
+}
+.warning-aman{
+    background: rgba(0, 163, 36, 0.13);
+    border: 3px solid #00A324;
+}
+.warning p{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16.6933px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+
+.closer{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 107px;
+    height: 41px;
+    background: none;
+    border: none;
+    background-image: url('img/closer.svg');
+    background-size: contain;
+    background-position: top right;
+    background-repeat: no-repeat;
+    transition: 0.25s;
+}
+.closer:focus{
+    outline: none;
+    filter: brightness(1.5);
+}
+.closer:hover{
+    filter: brightness(1.5);
+    transform: scale(1.05);
+}

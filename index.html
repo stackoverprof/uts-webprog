@@ -3,104 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="icon" type="image/png" href="img/favicon.png"/>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 
     <title>Penugasan UTS</title>
 </head>
 
 <body>
-    <div>
-        <p>Ujian Tengah Semester</p>
-        <p>Nama : Namamu</p>
-        <p>NIM : NIMmu</p>
+    <div class="inputside"> 
+        <h1>FORMULIR</h1>  
+
+        <!-- BAGIAN FORMULIR -->
+        <div class="container-form">
+            <form id="formulir" action="">
+                <div class="eachinput">
+                    <label for="major">PROGRAM<br>STUDI</label>
+                    <select required id="input-major" name="major">
+                        <option disabled selected value="" style="color: #939393;">Pilih jurusan</option>
+                        <option value="ILMU KOMPUTER">ILMU KOMPUTER</option>
+                        <option value="KIMIA">KIMIA</option>
+                        <option value="MATEMATIKA">MATEMATIKA</option>
+                        <option value="ELINS">ELINS</option>
+                    </select>
+                </div>
+                <div class="eachinput">
+                    <label for="name">NAMA</label>
+                    <input required type="text" id="input-name" name="name" placeholder="Nama lengkap">
+                </div>
+                <div class="eachinput">
+                    <label for="email">EMAIL</label>
+                    <input required type="email" id="input-email" name="email" placeholder="Alamat e-mail">
+                </div>
+                <div class="eachinput comments">
+                    <label for="comments">comments &ensp;</label>
+                    <textarea required name="comments" id="input-comments" cols="30" rows="5" placeholder="Isikan komentarmu di sini..."></textarea>
+                </div>
+                <div class="buttons">
+                    <input type="reset" id="reset" value="RESET">
+                    <button type="submit" id="submit">PROCESS</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- MODAL / POP UP box untuk menampilkan jawaban -->
+        <div class="result-modal" id="modal-result">
+            <div class="background-modal">
+                <div class="container-hasil">
+                    <div class="text-hasil">
+                        <h1 class="h-result">RESULT</h1>
+    
+                        <!-- P tag dibawah adalah untuk menampilkan result -->
+                        <p id="result"></p>
+                    </div>
+                    <div class="warning" id="warning">
+                        <img id="warning-icon" src="" alt="">
+                        <p id="warning-text"></p>
+                    </div>
+                </div>
+                <button type="button" class="closer" onclick="closeModal()"></button type="button">
+            </div>
+        </div>
     </div>
 
-    <form id="form" onsubmit="event.preventDefault()">
-        <label for="major">Major</label>
-        <select id="input-major" name="major">
-            <option selected value="">--pilih jurusan--</option>
-            <option value="jurusan1">jurusan1isinodewe</option>
-            <option value="jurusan2">jurusan2</option>
-            <option value="jurusan3">jurusan3</option>
-            <option value="jurusan4">jurusan4</option>
-        </select>
-        <br>
-        <label for="name">Name</label>
-        <input type="text" id="input-name" name="name">
-        <br>
-        <label for="email">e-mail</label>
-        <input type="email" id="input-email" name="email">
-        <br>
-        <label for="comments">Comments</label>
-        <textarea name="comments" id="input-comments" cols="30" rows="10"></textarea>
-        <br>
-    </form>
-        <button id="reset" onclick="reset()">Reset</button>
-        <button id="submit" onclick="submit()">Process</button>
+    <!-- HIASAN BACKGROUND -->
+    <div class="colorfulside">
+        <div class="default-content">
+            <h3>Penugasan UTS</h3>
+            <h2><span>WEB</span>PROG</h2>
+            <div class="namebox">
+                <h4>R.Bintang Bagus Putra Angkasa</h4>
+                <h5>19/442484/PA/19233</h5>
+            </div>
+        </div>
 
-    <div>
-        <p>Result</p>
-        <p id="answer"></p>
+        <img class="floater" src="img/floater.svg" alt="">
     </div>
+
+
 
     <script>
-        //originalitas tugas dinilai jd plis dimodif ya semua variable, kasi komen, kasi apa kek dirubah kodingannya
-        //jangan lupa ini juga harus didesain pake css
-        //Komponen Penilaian:
-        // • Originalitas
-        // • Desain dan Layout Web Statis
-        // • Membaca data dari form
-        // • Pengolahan data dengan JavaScript
-        // • Validasi data
+        //MEMBUAT OBJEK (DOM) DARI MASING MASING ELEMENT
+        let formulir = document.getElementById("formulir");
+        let buttonSubmit = document.getElementById("submit");
+        let inputMajor = document.getElementById("input-major");
+        let inputName = document.getElementById("input-name");
+        let inputEmail = document.getElementById("input-email");
+        let inputComments = document.getElementById("input-comments");
+        let result = document.getElementById("result");
 
+        //menetapkan daftar kata kotor dalam array
+        const kataNegatif = ["monyet", "bebek", "anjing", "ayam", "jangkrik", "tupai"];
 
-        var form = document.getElementById("form");
+        //listening pada event submit, jalankan fungsi proses() bisa form di submit
+        formulir.addEventListener('submit', proses);
 
-        var buttonReset = document.getElementById("reset");
-        var buttonSubmit = document.getElementById("submit");
+        //FUNGSI PROSES (berjalan ketika tombol proses di tekan dan form tersubmit)
+        function proses(event) {
+            event.preventDefault(); //menghalangi terjadinya default submit ke server karena akan diolah dulu di client side
 
-        var inputMajor = document.getElementById("input-major");
-        var inputName = document.getElementById("input-name");
-        var inputEmail = document.getElementById("input-email");
-        var inputComments = document.getElementById("input-comments");
+            let arrayComments = inputComments.value.split(" "); //mengambil value comments lalau di split pada spasi sehingga dapat array isinya kata kata
+            let splitEmail = inputEmail.value.split("@"); //mengambil value email lalu di split pada @ sehingga jadi dua, username dan mail provider
 
-        var answer = document.getElementById("answer");
-
-        function reset(){
-            form.reset();
-        }
-
-        var kataNegatif = ["anjay", "anjir", "anjim", "anjeng", "anju"];
-
-        function submit() {
-            var arrayComments = inputComments.value.split(" ");
-            var splitEmail = inputEmail.value.split("@");
-            var adaKataKotor = false;
-
+            //PENGECEKAN KATA NEGATIF
+            let isKotor = false;
+            //menggunakan perulangan bersarang, berjenis For Of
             for (const eachWord of arrayComments){
-                for (var i=0; i<kataNegatif.length; i++){
-                    if (eachWord == kataNegatif[i]) adaKataKotor = true;
+                for (const eachKataNegatif of kataNegatif){
+                    if (eachWord == eachKataNegatif) isKotor = true;
+                    //bila ditemukan kecocokan kata kotor maka isKotor jadi true
                 }
             }
             
-            var menyusunstring = "Hi " + inputName.value + " dari " + inputMajor.value + "<br> ... <br>" + 
-                             "Alamat email yang anda isikan " + splitEmail[0] + " (at) " + splitEmail[1] + "<br> ... <br>" +
-                             "Jumlah kata dalam komentar Anda sebanyak: " + arrayComments.length + " kata" + "<br>";
-
-            if (adaKataKotor == true){
-                menyusunstring = menyusunstring + "Maaf, tidak boleh pakai kata: " 
-                             + kataNegatif[0] + ", " 
-                             + kataNegatif[1] + ", " 
-                             + kataNegatif[2] + ", " 
-                             + kataNegatif[3] + ", dan  "
-                             + kataNegatif[4] +
-                             ", harap diganti/dihapus" 
+            //MENYUSUN STRING HASIL AKHIR
+            //menggunakan teknik Template Literals (memakai backtick ``)
+            let finalOutput = `Hi, ${inputName.value} dari ${inputMajor.value} <br> ... <br> 
+                                  Alamat email yang anda isikan ${splitEmail[0]} (at) ${splitEmail[1]} <br> ... <br>
+                                  Jumlah kata dalam komentar Anda sebanyak: ${arrayComments.length} kata <br>`;
+            
+            //if conditional untuk tergantung ada atau tidaknya kata negatif
+            if (isKotor == true){
+                finalOutput = `${finalOutput}<br> Maaf, tidak boleh pakai kata:
+                                 ${kataNegatif.toString()}.<br>Harap diganti/dihapus`;
+            }else{
+                finalOutput = `${finalOutput}<br>Bagus, tidak ada kata terlarang:
+                                 ${kataNegatif.toString()}.<br>Terimakasih`;
             }
             
-            answer.innerHTML = menyusunstring;
+            //memasukan string final ke DOM result untuk dioutput
+            result.innerHTML = finalOutput;
+
+            //menjalankan script animasi interaktif
+            interactiveScript(isKotor);
+        }
+    </script>
+
+    <script>
+        function interactiveScript(isKotor){
+            //memunculkan modal box result
+            document.getElementById('modal-result').style.transform = "translateX(0) scale(1)"
+            
+            //conditional pada div warning bila ada kata terlarang
+            let warning = document.getElementById('warning');
+            let warningText = document.getElementById('warning-text');
+            let warningIcon = document.getElementById('warning-icon');
+            if(isKotor == true){
+                warning.className = "warning warning-ada";
+                warningText.innerHTML = "KATA NEGATIF TERDETEKSI";
+                warningIcon.src = "img/no.svg"
+            }else{
+                warning.className = "warning warning-aman"
+                warningText.innerHTML = "Tidak ada kata negatif terdeteksi";
+                warningIcon.src = "img/yes.svg"
+            }
         }
 
-        
+        function closeModal(){
+            document.getElementById('modal-result').style.transform = "translateX(-608px) scale(0.7)"
+        }
     </script>
 </body>
 </html>
