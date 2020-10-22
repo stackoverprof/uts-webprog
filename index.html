@@ -94,23 +94,22 @@
         let inputComments = document.getElementById("input-comments");
         let result = document.getElementById("result");
 
-        //menetapkan daftar kata kotor dalam array
+        //MENETAPKAN DAFTAR KATA NEGATIF
         const kataNegatif = ["monyet", "bebek", "anjing", "ayam", "jangkrik", "tupai"];
 
-        //listening pada event submit, jalankan fungsi proses() bisa form di submit
-        formulir.addEventListener('submit', proses);
+        formulir.addEventListener('submit', proses);    //listening pada event submit, jalankan fungsi proses() bisa form di submit
 
-        //FUNGSI PROSES (berjalan ketika tombol proses di tekan dan form tersubmit)
+        //FUNGSI PROSES                     <-- (berjalan ketika tombol proses di tekan dan form tersubmit)
         function proses(event) {
-            event.preventDefault(); //menghalangi terjadinya default submit ke server karena akan diolah dulu di client side
+            event.preventDefault();             //menghalangi terjadinya default submit ke server karena akan diolah dulu di client side
 
-            let arrayComments = inputComments.value.split(" "); //mengambil value comments lalau di split pada spasi sehingga dapat array isinya kata kata
-            let splitEmail = inputEmail.value.split("@"); //mengambil value email lalu di split pada @ sehingga jadi dua, username dan mail provider
+            let arrayComments = inputComments.value.split(/\s+/);   //mengambil value comments lalau di split pada /\s+/ (whitespace characters termasuk spasi dan enter) sehingga dapat array isinya kata kata
+            let splitEmail = inputEmail.value.split("@");           //mengambil value email lalu di split pada @ sehingga jadi dua, username dan mail provider
 
             //PENGECEKAN KATA NEGATIF
             let isKotor = false;
-            //menggunakan perulangan bersarang, berjenis For Of
-            for (const eachWord of arrayComments){
+
+            for (const eachWord of arrayComments){                //menggunakan perulangan bersarang, berjenis For Of
                 for (const eachKataNegatif of kataNegatif){
                     if (eachWord.toLowerCase() == eachKataNegatif) isKotor = true;
                     //bila ditemukan kecocokan kata kotor maka isKotor jadi true
@@ -118,13 +117,12 @@
                 }
             }
             
-            //MENYUSUN STRING HASIL AKHIR
-            //menggunakan teknik Template Literals (memakai backtick ``)
+            //MENYUSUN STRING HASIL AKHIR       //menggunakan teknik Template Literals (memakai backtick ``)
             let finalOutput = `Hi, ${inputName.value} dari ${inputMajor.value} <br> ... <br> 
                                   Alamat email yang anda isikan ${splitEmail[0]} (at) ${splitEmail[1]} <br> ... <br>
                                   Jumlah kata dalam komentar Anda sebanyak: ${arrayComments.length} kata <br>`;
             
-            //if conditional untuk tergantung ada atau tidaknya kata negatif
+            //IF CONDITIONAL        tergantung ada atau tidaknya kata negatif
             if (isKotor == true){
                 finalOutput = `${finalOutput}<br> Maaf, tidak boleh pakai kata:
                                  ${kataNegatif.toString()}.<br>Harap diganti/dihapus`;
