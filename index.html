@@ -13,41 +13,50 @@
 </head>
 
 <body>
+    
     <div class="inputside"> 
-        <h1>FORMULIR</h1>  
+        <div class="image-header"></div>
+        <div class="input-content">
 
-        <!-- BAGIAN FORMULIR -->
-        <div class="container-form">
-            <form id="formulir" action="">
-                <div class="eachinput">
-                    <label for="major">PROGRAM<br>STUDI</label>
-                    <select required id="input-major" name="major">
-                        <option disabled selected value="" style="color: #939393;">Pilih jurusan</option>
-                        <option value="ILMU KOMPUTER">ILMU KOMPUTER</option>
-                        <option value="KIMIA">KIMIA</option>
-                        <option value="MATEMATIKA">MATEMATIKA</option>
-                        <option value="ELINS">ELINS</option>
-                    </select>
-                </div>
-                <div class="eachinput">
-                    <label for="name">NAMA</label>
-                    <input required type="text" id="input-name" name="name" placeholder="Nama lengkap">
-                </div>
-                <div class="eachinput">
-                    <label for="email">EMAIL</label>
-                    <input required type="email" id="input-email" name="email" placeholder="Alamat e-mail">
-                </div>
-                <div class="eachinput comments">
-                    <label for="comments">comments &ensp;</label>
-                    <textarea required name="comments" id="input-comments" cols="30" rows="5" placeholder="Isikan komentarmu di sini..."></textarea>
-                </div>
-                <div class="buttons">
-                    <input type="reset" id="reset" value="RESET">
-                    <button type="submit" id="submit">PROCESS</button>
-                </div>
-            </form>
+            <h1 class="h1formulir">FORMULIR</h1>  
+            
+            <!-- BAGIAN FORMULIR -->
+            <div class="container-form">
+                <form id="formulir" action="">
+                    <div class="eachinput">
+                        <label for="major">PROGRAM STUDI</label>
+                        <select required id="input-major" name="major">
+                            <option disabled selected value="" style="color: #939393;">Pilih jurusan</option>
+                            <option value="ILMU KOMPUTER">ILMU KOMPUTER</option>
+                            <option value="KIMIA">KIMIA</option>
+                            <option value="MATEMATIKA">MATEMATIKA</option>
+                            <option value="ELINS">ELINS</option>
+                        </select>   
+                    </div>
+                    <div class="eachinput">
+                        <label for="name">NAMA</label>
+                        <input required type="text" id="input-name" name="name" placeholder="Nama lengkap">
+                    </div>
+                    <div class="eachinput">
+                        <label for="email">EMAIL</label>
+                        <input required type="email" id="input-email" name="email" placeholder="Alamat e-mail">
+                    </div>
+                    <div class="eachinput comments">
+                        <label for="comments">comments &ensp;</label>
+                        <textarea required name="comments" id="input-comments" cols="30" rows="5" placeholder="Isikan komentarmu di sini..."></textarea>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" class="btn-kataterlarang" onclick="togglePopTerlarang(true)">Daftar kata terlarang</button>
+                        <div class="dua-button">
+                            <button type="reset" id="reset">RESET</button>
+                            <button type="submit" id="submit">PROCESS</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="creditnama"></div>
         </div>
-
+            
         <!-- MODAL / POP UP box untuk menampilkan jawaban -->
         <div class="result-modal" id="modal-result">
             <div class="background-modal">
@@ -64,10 +73,12 @@
                     </div>
                 </div>
                 <button type="button" class="closer" onclick="closeModal()"></button type="button">
+                <button type="button" class="closer2" onclick="closeModal()"></button type="button">
             </div>
         </div>
-    </div>
 
+    </div>
+    
     <!-- HIASAN BACKGROUND -->
     <div class="colorfulside">
         <div class="default-content">
@@ -77,9 +88,18 @@
                 <h4>R.Bintang Bagus Putra Angkasa</h4>
                 <h5>19/442484/PA/19233</h5>
             </div>
+            <button type="button" class="btn-kataterlarang btn-kataterlarang2" id="btn-kataterlarang2" onclick="togglePopTerlarang(true)">Daftar kata terlarang</button>
+                    
         </div>
-
+        
         <img class="floater" src="img/floater.svg" alt="">
+        <div class="daftar-kata-terlarang" id="daftarkataterlarang">
+            <div class="content-terlarang" onclick="togglePopTerlarang(true)">
+                <p class="kataterlarang">KATA TERLARANG</p>
+                <p class="apaaja" id="apaaja"></p>
+            </div>
+            <button onclick="togglePopTerlarang(false)"></button>
+        </div>
     </div>
 
 
@@ -93,48 +113,59 @@
         let inputEmail = document.getElementById("input-email");
         let inputComments = document.getElementById("input-comments");
         let result = document.getElementById("result");
-
+        
         //MENETAPKAN DAFTAR KATA NEGATIF
-        const kataNegatif = ["monyet", "bebek", "anjing", "ayam", "jangkrik", "tupai"];
-
-        formulir.addEventListener('submit', proses);    //listening pada event submit, jalankan fungsi proses() bisa form di submit
-
-        //FUNGSI PROSES                     <-- (berjalan ketika tombol proses di tekan dan form tersubmit)
+        const kataNegatif = ["gila", "jelek", "bodoh", "idiot", "dungu", "jorok"];
+        
+        formulir.addEventListener('submit', proses);                //listening pada event submit, jalankan fungsi proses() bisa form di submit
+        
+        //FUNGSI PROSES                                             <-- (berjalan ketika tombol proses di tekan dan form tersubmit)
         function proses(event) {
-            event.preventDefault();             //menghalangi terjadinya default submit ke server karena akan diolah dulu di client side
-
-            let arrayComments = inputComments.value.split(/\s+/);   //mengambil value comments lalau di split pada /\s+/ (whitespace characters termasuk spasi dan enter) sehingga dapat array isinya kata kata
-            let splitEmail = inputEmail.value.split("@");           //mengambil value email lalu di split pada @ sehingga jadi dua, username dan mail provider
+            event.preventDefault();                                 //menghalangi terjadinya default submit ke server karena akan diolah dulu di client side
+            
+            //MEMBERSIHKAN TANDA BACA
+            let comments = inputComments.value.replace(/\W/g, " ");
+            
+            //SPLIT COMMENTS mjd array
+            comments = comments.split(/\s+/).filter(item => item);   //mengambil value comments lalau di split pada /\s+/ (whitespace characters termasuk spasi dan enter) sehingga dapat array isinya kata kata, filter berfungsi untuk menghapus array stirng kosong seperti ""
+            let splitEmail = inputEmail.value.split("@"); 
 
             //PENGECEKAN KATA NEGATIF
             let isKotor = false;
+            let userBadWords = [];                                  //variabel yang menampung kata user yang kotor
 
-            for (const eachWord of arrayComments){                //menggunakan perulangan bersarang, berjenis For Of
+            for (const eachComment of comments){                    //menggunakan perulangan bersarang, berjenis For Of
                 for (const eachKataNegatif of kataNegatif){
-                    if (eachWord.toLowerCase() == eachKataNegatif) isKotor = true;
-                    //bila ditemukan kecocokan kata kotor maka isKotor jadi true
-                    //dirubah ke lowercase untuk menghindari perbedaan kapitalisasi pada kata kotor,jadi misal Bebek bebek beBek BeBeK akan tetap terdeteksi kotor
+                    if (eachComment.toLowerCase() == eachKataNegatif) {
+                        isKotor = true;
+                                                                    //bagian menampung apa kata kotor yang diucap user
+                        if (!userBadWords.includes(eachComment.toLowerCase())){ //supaya unique, kalau belum ada, masukan ke array
+                            userBadWords.push(eachComment.toLowerCase());
+                        }
+                    };
+                                                                    //bila ditemukan kecocokan kata kotor maka isKotor jadi true
+                                                                    //dirubah ke lowercase untuk menghindari perbedaan kapitalisasi pada kata kotor,jadi misal Bebek bebek beBek BeBeK akan tetap terdeteksi kotor
                 }
             }
             
-            //MENYUSUN STRING HASIL AKHIR       //menggunakan teknik Template Literals (memakai backtick ``)
+            //MENYUSUN STRING HASIL AKHIR                           //menggunakan teknik Template Literals (memakai backtick ``)
             let finalOutput = `Hi, ${inputName.value} dari ${inputMajor.value} <br> ... <br> 
-                                  Alamat email yang anda isikan ${splitEmail[0]} (at) ${splitEmail[1]} <br> ... <br>
-                                  Jumlah kata dalam komentar Anda sebanyak: ${arrayComments.length} kata <br>`;
+                               Alamat email yang anda isikan ${splitEmail[0]} (at) ${splitEmail[1]} <br> ... <br>
+                               Jumlah kata dalam komentar Anda sebanyak: <br> ${comments.length} kata <br>`;
             
-            //IF CONDITIONAL        tergantung ada atau tidaknya kata negatif
-            if (isKotor == true){
-                finalOutput = `${finalOutput}<br> Maaf, tidak boleh pakai kata:
-                                 ${kataNegatif.toString()}.<br>Harap diganti/dihapus`;
+            //IF CONDITIONAL                                        //tergantung ada atau tidaknya kata negatif
+            if (isKotor){
+                finalOutput = `${finalOutput}<br> Maaf, tidak boleh pakai kata: <br>
+                               ${userBadWords.length > 1 ? userBadWords.slice(0, -1).join(', ') + " dan " + userBadWords.slice(-1) : userBadWords[0]}<br>
+                               Harap diganti/dihapus`;
             }else{
-                finalOutput = `${finalOutput}<br>Bagus, tidak ada kata terlarang:
-                                 ${kataNegatif.toString()}.<br>Terimakasih`;
+                finalOutput = `${finalOutput}<br>Bagus, tidak ada kata terlarang <br>Terimakasih`;
             }
             
-            //memasukan string final ke DOM result untuk dioutput
+            //MEMASUKAN finalOutput KE DOM PADA <p> result
             result.innerHTML = finalOutput;
 
-            //menjalankan script animasi interaktif
+            //MENJALANKAN ANIMASI POP UP BOX RESULT (script animasi terpisah dibawah)
             interactiveScript(isKotor);
         }
     </script>
@@ -158,9 +189,32 @@
                 warningIcon.src = "img/yes.svg"
             }
         }
-
+        document.getElementById('apaaja').innerHTML = kataNegatif.slice(0, -1).join(', ') + " dan " + kataNegatif.slice(-1)
+        
         function closeModal(){
             document.getElementById('modal-result').style.transform = "translateX(-608px) scale(0.7)"
+        }
+
+        function togglePopTerlarang(open){
+            let popUpTerlarang = document.getElementById('daftarkataterlarang');
+            let btnKedua = document.getElementById('btn-kataterlarang2');
+            
+            if(open){
+                btnKedua.style.filter = "opacity(0)"
+                btnKedua.style.zIndex = "0"
+                popUpTerlarang.style.filter = "opacity(1)"
+                popUpTerlarang.style.transform = "scale(1)"
+            }else{
+                popUpTerlarang.style.filter = "opacity(0)"
+                popUpTerlarang.style.transition = "0.25s"
+                popUpTerlarang.style.transform = "scale(0.8)"
+                
+                setTimeout(() => {
+                    btnKedua.style.filter = "opacity(1)"
+                    btnKedua.style.zIndex = "10"
+                }, 500);
+            }
+            console.log(popUpTerlarang);
         }
     </script>
 </body>
